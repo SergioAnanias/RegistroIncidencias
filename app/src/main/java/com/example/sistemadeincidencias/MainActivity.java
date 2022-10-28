@@ -4,6 +4,7 @@ package com.example.sistemadeincidencias;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.Date;
@@ -26,7 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
     private SensorEvent event;
     EditText name, rut, reason;
-    TextView textView;
+
     public class Incidence {
         String lab="";
         String name="";
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         name = (EditText) findViewById(R.id.txt_name);
         rut = (EditText) findViewById(R.id.txt_rut);
         reason = (EditText) findViewById(R.id.reason);
-        textView=(TextView) findViewById(R.id.result);
         s= (Spinner) findViewById(R.id.spinner_labs);
         setSpinner();
 
@@ -69,11 +70,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
     public void createIncidence(View view){
         Incidence incidence = new Incidence();
-        if(rut.getText().toString() == "" || name.getText().toString() == "" || reason.getText().toString() == ""){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Existen campos sin rellenar");
-            builder.setMessage("Debe completar todos los campos");
-            builder.show();
+        if(rut.getText().toString().matches("")|| name.getText().toString().matches("")|| reason.getText().toString().matches("")){
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context,"Existen campos sin rellenar", Toast.LENGTH_LONG );
+            toast.show();
         }
         else{
             if(validateRut(rut.getText().toString())){
@@ -87,10 +87,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 builder.show();
             }
             else{
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("El rut no es valido");
-                builder.setMessage("El rut ingresado no es valido, este debe ser sin puntos y con guión");
-                builder.show();
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context,"El rut ingresado no es valido, este debe ser sin puntos y con guión", Toast.LENGTH_LONG );
+                toast.show();
+
             }
         }
     }
