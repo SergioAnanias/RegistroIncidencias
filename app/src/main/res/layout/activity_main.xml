@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/view" xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:text="Registro de Incidencias"
+        android:textSize="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona un laboratorio"
+        android:layout_above="@+id/spinner_labs"
+        android:layout_centerHorizontal="true"
+        android:labelFor="@+id/spinner_labs"
+
+        />
+
+    <Spinner
+        android:id="@+id/spinner_labs"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:autofillHints="asd"
+        android:spinnerMode="dialog"
+
+        android:tooltipText="Selecciona un laboratorio" />
+
+    <EditText
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_labs"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:layout_centerHorizontal="true"
+        android:inputType="textPersonName"
+        android:hint="Ingrese su nombre acá"
+         />
+
+    <EditText
+        android:id="@+id/txt_rut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:ems="15"
+        android:hint="Ingrese su RUT sin puntos y con guión"
+
+        android:inputType="text" />
+
+
+    <EditText
+        android:id="@+id/reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/txt_rut"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="start|top"
+
+        android:inputType="textMultiLine" />
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reason"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Subir incidencia"
+        android:onClick="createIncidence"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submit"
+        android:id="@+id/result"
+        />
+</RelativeLayout>
