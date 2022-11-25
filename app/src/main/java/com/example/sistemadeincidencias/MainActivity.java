@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -28,7 +29,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
     private SensorEvent event;
     EditText name, rut, reason;
-
+    DBHandler dbHandler;
     public class Incidence {
         String lab="";
         String name="";
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         name = (EditText) findViewById(R.id.txt_name);
@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
         List<Sensor> sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);
+        dbHandler = new DBHandler(MainActivity.this);
+
         if (sensors.size() > 0)
         {
             sm.registerListener(this, sensors.get(0), SensorManager.SENSOR_DELAY_NORMAL);
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 builder.setTitle("Registro exitoso");
                 builder.setMessage("Incidencia reportada exitosamente con fecha y hora:"+incidence.now.toString());
                 builder.show();
+                this.dbHandler.addNewIncidencia(incidence.lab, incidence.name, incidence.rut, incidence.reason, incidence.now.toString());
+                Intent intent = new Intent(MainActivity.this, success.class);
+                startActivity(intent);
             }
             else{
                 Context context = getApplicationContext();
@@ -108,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 android.R.layout.simple_spinner_item, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
+    }
+
+    public void lista_incidencias(View view){
+        Intent intent = new Intent(MainActivity.this, lista_incidencias.class);
+        startActivity(intent);
 
     }
 }
